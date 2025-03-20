@@ -1,0 +1,17 @@
+.Alert__Wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+  max-width: 400px;
+
+  svg {
+    width: 150px;
+  }
+
+  .Alert__Content {
+    font-size: 30px;
+    text-align: center;
+  }
+}
