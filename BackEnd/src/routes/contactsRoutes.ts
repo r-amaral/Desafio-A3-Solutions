@@ -3,6 +3,7 @@ import ContactsController from "../controllers/contactsController";
 
 const router = express.Router();
 
-router.get("/contacts", ContactsController.listContacts);
+router.get("/contact/search", ContactsController.listContacts);
+router.post("/contact", ContactsController.createContact);
 
 export default router;
