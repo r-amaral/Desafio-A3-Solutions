@@ -42,7 +42,7 @@ export const validateCpf = (maskedCpf: string) => {
 };
 
 export const validateName = (name: string) => {
-  return !/\d/.test(name);
+  return /\d/.test(name);
 };
 
 export const validateEmail = (email: string) => {
@@ -51,4 +51,44 @@ export const validateEmail = (email: string) => {
 
 export const validatePhone = (phone: string) => {
   return !/^\d{11}$/.test(phone);
+};
+
+interface ValidateFieldsTypes {
+  name?: string;
+  cpf?: string;
+  email?: string;
+  phone?: string;
+  isCreate?: boolean;
+}
+
+export const validateFields = ({
+  name,
+  cpf,
+  email,
+  phone,
+  isCreate,
+}: ValidateFieldsTypes) => {
+  if (isCreate) {
+    if (!name || !cpf || !email || !phone) {
+      return { valid: false, message: "Missing required fields" };
+    }
+  }
+
+  if (email && validateEmail(email)) {
+    return { valid: false, message: "Invalid email format" };
+  }
+
+  if (name && validateName(name)) {
+    return { valid: false, message: "Invalid name format" };
+  }
+
+  if (phone && validatePhone(phone)) {
+    return { valid: false, message: "Invalid phone number format" };
+  }
+
+  if (cpf && !validateCpf(cpf)) {
+    return { valid: false, message: "Invalid cpf format" };
+  }
+
+  return { valid: true };
 };
