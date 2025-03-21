@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
 import "./contactList.css";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import Alert from "../components/Alert";
-
-const initialList = [
-  { name: "ruan", cpf: "cpf", email: "email", phone: "phone" },
-];
+import Header from "../components/Header";
+import { initialList } from "./constants";
+import { ContactTypes } from "../types";
 
 const ContactList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,57 +15,56 @@ const ContactList = () => {
     (item) =>
       item.name.toLowerCase().includes(searchTerm) ||
       item.cpf.toLowerCase().includes(searchTerm) ||
-      item.email.toLowerCase().includes(searchTerm)
+      item.email.toLowerCase().includes(searchTerm) ||
+      item.phone.toLowerCase().includes(searchTerm)
   );
 
   const onMountList = () => {
     if (filteredList.length <= 0) {
-      return (
-        <Alert text="Nenhum contato cadastrado ou sem resultados de busca" />
-      );
+      const alertText =
+        list.length > 0 ? "No results found" : "No contacts found";
+
+      return <Alert text={alertText} />;
     }
 
     return (
       <ul className="List__Content">
-        {filteredList.map(
-          (
-            item: {
-              name: string;
-              cpf: string;
-              email: string;
-              phone: string;
-            },
-            i: number
-          ) => (
-            <Card
-              key={i.toString()}
-              cpf={item.cpf}
-              name={item.name}
-              email={item.email}
-              phone={item.phone}
-            />
-          )
-        )}
+        <li className="List__Content__Item">
+          <span>Email</span>
+          <span>Name</span>
+          <span>CPF</span>
+          <span>Phone</span>
+        </li>
+        {filteredList.map((item: ContactTypes, i: number) => (
+          <Card
+            key={i.toString()}
+            cpf={item.cpf}
+            name={item.name}
+            email={item.email}
+            phone={item.phone}
+          />
+        ))}
       </ul>
     );
   };
 
   return (
-    <main className="Main__Content">
-      <section className="ContactList__Section">
-        <div className="ContactList__ActionsWrapper">
-          <Input
-            id="input-search-contact"
-            label="Search Contact"
-            placeholder="Search Contact"
-            onChange={(event) =>
-              setSearchTerm(event.target.value.toLowerCase())
-            }
-          />
-          <Button>Add contact</Button>
+    <main>
+      <Header activeContacts={list.length} />
+      <section className="Main__Content">
+        <div className="ContactList__Section">
+          <div className="ContactList__ActionsWrapper">
+            <Input
+              id="input-search-contact"
+              label="Search Contact"
+              placeholder="search by name, email, cpf and phone"
+              onChange={(event) =>
+                setSearchTerm(event.target.value.toLowerCase())
+              }
+            />
+          </div>
+          {onMountList()}
         </div>
-
-        {onMountList()}
       </section>
     </main>
   );
