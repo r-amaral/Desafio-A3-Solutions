@@ -6,10 +6,12 @@ import Alert from "../components/Alert";
 import Header from "../components/Header";
 import { initialList } from "./constants";
 import { ContactTypes } from "../types";
+import Pagination from "../components/pagination";
 
 const ContactList = () => {
-  const [searchTerm, setSearchTerm] = useState("");
   const [list, setList] = useState(initialList);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredList = list.filter(
     (item) =>
@@ -19,8 +21,18 @@ const ContactList = () => {
       item.phone.toLowerCase().includes(searchTerm)
   );
 
+  const indexOfLastItem = currentPage * 10;
+  const indexOfFirstItem = indexOfLastItem - 10;
+
+  const currentItems = filteredList.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
   const onMountList = () => {
-    if (filteredList.length <= 0) {
+    if (currentItems.length <= 0) {
       const alertText =
         list.length > 0 ? "No results found" : "No contacts found";
 
@@ -35,7 +47,7 @@ const ContactList = () => {
           <span>CPF</span>
           <span>Phone</span>
         </li>
-        {filteredList.map((item: ContactTypes, i: number) => (
+        {currentItems.map((item: ContactTypes, i: number) => (
           <Card
             key={i.toString()}
             cpf={item.cpf}
@@ -58,12 +70,19 @@ const ContactList = () => {
               id="input-search-contact"
               label="Search Contact"
               placeholder="search by name, email, cpf and phone"
-              onChange={(event) =>
-                setSearchTerm(event.target.value.toLowerCase())
-              }
+              onChange={(event) => {
+                setCurrentPage(1);
+                setSearchTerm(event.target.value.toLowerCase());
+              }}
             />
           </div>
           {onMountList()}
+          <Pagination
+            itemsPerPage={10}
+            totalItems={filteredList.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </div>
       </section>
     </main>
