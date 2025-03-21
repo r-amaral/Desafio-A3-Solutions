@@ -2,13 +2,6 @@ import contacts from "../models/Contact";
 import { Request, Response } from "express";
 import { Document } from "mongoose";
 import { validateFields } from "../utils/validate";
-interface Contact extends Document {
-  name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  havePhoto: boolean;
-}
 
 class ContactsController {
   static listContacts = async (
