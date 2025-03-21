@@ -10,14 +10,18 @@
     display: block;
   }
 
-  .List__Item__Action {
-    display: flex;
-    width: max-content;
-    background: transparent;
-    outline: none;
-    border: none;
-    font-size: 30px;
-    font-weight: bold;
-    cursor: pointer;
+  .List_Item__Action__Wrapper {
+    position: relative;
+
+    .List__Item__Action {
+      display: flex;
+      width: max-content;
+      background: transparent;
+      outline: none;
+      border: none;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
   }
 }

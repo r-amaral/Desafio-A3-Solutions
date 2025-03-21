@@ -1,4 +1,3 @@
-import React from "react";
 import LupaIcon from "../../assets/Lupa.tsx";
 import "./Alert.css";
 

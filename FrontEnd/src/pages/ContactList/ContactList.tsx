@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./contactList.css";
-import Card from "../components/Card";
-import Input from "../components/Input";
-import Alert from "../components/Alert";
-import Header from "../components/Header";
-import { initialList } from "./constants";
-import { ContactTypes } from "../types";
-import Pagination from "../components/pagination";
+import Card from "../../components/Card";
+import Input from "../../components/Input";
+import Alert from "../../components/Alert";
+import Header from "../../components/Header";
+import { initialList } from "../constants";
+import { ContactTypes } from "../../types";
+import Pagination from "../../components/Pagination";
+import ContactModal from "./ContactModal";
 
 const ContactList = () => {
   const [list, setList] = useState(initialList);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [openModal, setOpenModal] = useState(false);
+  const [contactData, setContactData] = useState<ContactTypes>({
+    name: "",
+    cpf: "",
+    email: "",
+    phone: "",
+  });
 
   const filteredList = list.filter(
     (item) =>
@@ -50,10 +58,13 @@ const ContactList = () => {
         {currentItems.map((item: ContactTypes, i: number) => (
           <Card
             key={i.toString()}
+            setOpenModal={setOpenModal}
+            setContactData={setContactData}
             cpf={item.cpf}
             name={item.name}
             email={item.email}
             phone={item.phone}
+            id={item.id}
           />
         ))}
       </ul>
@@ -62,7 +73,10 @@ const ContactList = () => {
 
   return (
     <main>
-      <Header activeContacts={list.length} />
+      <Header
+        activeContacts={list.length}
+        openModal={() => setOpenModal(true)}
+      />
       <section className="Main__Content">
         <div className="ContactList__Section">
           <div className="ContactList__ActionsWrapper">
@@ -84,6 +98,13 @@ const ContactList = () => {
             currentPage={currentPage}
           />
         </div>
+        <ContactModal
+          open={openModal}
+          setOpenModal={setOpenModal}
+          contactData={contactData}
+          setContactData={setContactData}
+          isEdit={!!contactData.id}
+        />
       </section>
     </main>
   );

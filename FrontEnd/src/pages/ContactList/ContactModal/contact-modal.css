@@ -1,0 +1,30 @@
+.Contact__Modal_Wrapper {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  .Contact__Modal_Header {
+    display: flex;
+    justify-content: center;
+
+    .Contact__Modal_Title {
+      font-size: 26px;
+      color: #742dd1;
+      font-weight: bold;
+    }
+  }
+
+  .ContactModal__Buttons__Wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 16px;
+    width: 100%;
+    margin-top: 50px;
+
+    .Button__Content {
+      width: 50%;
+    }
+  }
+}

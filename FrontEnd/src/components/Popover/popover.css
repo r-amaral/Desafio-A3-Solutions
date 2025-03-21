@@ -1,0 +1,28 @@
+.Popover__Overlay {
+  position: absolute;
+  z-index: 10000;
+  top: 20px;
+  right: 40px;
+
+  .Popover__Container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: start;
+    background: white;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #742dd1;
+
+    button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+}
