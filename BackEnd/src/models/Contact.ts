@@ -9,6 +9,6 @@ const contactSchema = new mongoose.Schema({
   havePhoto: { type: Boolean, default: false },
 });
 
-const contacts = mongoose.model("contacts", contactSchema);
+const contacts = mongoose.model("Contacts", contactSchema);
 
 export default contacts;
