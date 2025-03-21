@@ -18,14 +18,20 @@ class ContactsController {
     try {
       const { query } = req.query;
 
-      const contactsByConditions = await contacts.find({
-        $or: [
-          { name: { $regex: query, $options: "i" } },
-          { cpf: { $regex: query, $options: "i" } },
-          { phone: { $regex: query, $options: "i" } },
-          { email: { $regex: query, $options: "i" } },
-        ],
-      });
+      let newQuery = {};
+
+      if (query) {
+        newQuery = {
+          $or: [
+            { name: { $regex: query, $options: "i" } },
+            { cpf: { $regex: query, $options: "i" } },
+            { phone: { $regex: query, $options: "i" } },
+            { email: { $regex: query, $options: "i" } },
+          ],
+        };
+      }
+
+      const contactsByConditions = await contacts.find(newQuery);
 
       res.status(200).json(contactsByConditions);
     } catch (erro: any) {
