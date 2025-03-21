@@ -39,6 +39,22 @@ class ContactsController {
     }
   };
 
+  static listContactsById = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+
+      const contactResults = await contacts.findById(id);
+
+      res.status(200).send(contactResults);
+    } catch (erro) {
+      res.status(400).send({
+        message: `${
+          (erro as Error).message
+        } - Contact not not found.`,
+      });
+    }
+  };
+
   static createContact = async (
     req: Request,
     res: Response
@@ -97,7 +113,21 @@ class ContactsController {
 
       res
         .status(200)
-        .send({ message: "contact updated successfully" });
+        .send({ message: "Contact updated successfully" });
+    } catch (erro) {
+      res.status(500).send({ message: (erro as Error).message });
+    }
+  };
+
+  static deleteContact = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+
+      await contacts.findByIdAndDelete(id);
+
+      res
+        .status(200)
+        .send({ message: "Contact removed successfully" });
     } catch (erro) {
       res.status(500).send({ message: (erro as Error).message });
     }
