@@ -1,19 +1,18 @@
 .Button__Content {
   padding: 1rem;
   max-width: 375px;
-  background-color: #1e3a8a;
+  background-color: #742dd1;
   color: #ffffff;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(30, 58, 138, 0.5),
-    0 2px 4px -2px rgba(30, 58, 138, 0.5);
+  box-shadow: 0 4px 6px -1px #39116e, 0 2px 4px -2px #39116e;
   transition: all 0.3s ease-in-out;
-  border: 1px solid #1e3a8a;
+  border: 1px solid #39116e;
   cursor: pointer;
   font-size: 20px;
   white-space: nowrap;
 }
 
 .Button__Content:hover {
-  color: #1e3a8a;
+  color: #39116e;
   background-color: #ffffff;
 }

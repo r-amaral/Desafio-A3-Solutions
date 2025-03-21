@@ -9,17 +9,12 @@ interface CardTypes {
 }
 
 const Card = ({ name, cpf, email, phone }: CardTypes) => (
-  <li className="Card">
-    <div className="Card__Content">
-      <span className="Card__Title">{name}</span>
-      <span className="Card__Cpf">{cpf}</span>
-    </div>
-    <div className="Card__Email">
-      <span>{email}</span>
-    </div>
-    <div className="Card__Phone">
-      <span>{phone}</span>
-    </div>
+  <li className="List__Content__Item Card">
+    <span>{email}</span>
+    <span>{name}</span>
+    <span>{cpf}</span>
+    <span>{phone}</span>
+    <button className="List__Item__Action">...</button>
   </li>
 );
 
