@@ -1,54 +1,73 @@
-Meu Projeto
+# 📝 My Project
 
-Este projeto é composto por duas aplicações: um backend feito em Node.js e um frontend desenvolvido com React.js.
+This project consists of two applications: a backend built with **Node.js** and a frontend developed with **React.js**.
 
-Estrutura do Projeto
+---
 
-/meu-projeto
-├── backend/ # Código do backend (Node.js)
-├── frontend/ # Código do frontend (React.js)
-├── README.md # Documentação do projeto
+## 📂 Project Structure
 
-🚀 Como executar o projeto
+```plaintext
+/my-project
+├── backend/ # Backend code (Node.js)
+├── frontend/ # Frontend code (React.js)
+├── README.md # Project documentation
+```
 
-1️⃣ Instalar dependências
+---
 
-Cada aplicação possui suas próprias dependências. Para instalá-las, execute os seguintes comandos:
+## 🚀 How to Run the Project
 
-Backend
+### 🔹 1️⃣ Install Dependencies
 
+Each application has its own dependencies. To install them, run the following commands:
+
+#### 📦 Backend
+
+```sh
 cd backend
 npm install
+```
 
-Frontend
+#### 🎨 Frontend
 
+```sh
 cd frontend
 npm install
+```
 
-2️⃣ Rodar os servidores
+### 🔹 2️⃣ Start the Servers
 
-Para iniciar os dois projetos, abra dois terminais e execute os seguintes comandos:
+To start both projects, open two terminals and run the following commands:
 
-Iniciar o Backend
+#### ▶️ Start Backend
 
+```sh
 cd backend
 npm run dev
+```
 
-Iniciar o Frontend
+#### ▶️ Start Frontend
 
+```sh
 cd frontend
 npm run dev
+```
 
-🛠 Tecnologias utilizadas
+---
 
-Backend: Node.js, Express
+## 🛠 Technologies Used
 
-Frontend: React.js, Vite
+- **Backend:** 🟢 Node.js, 🚀 Express
+- **Frontend:** ⚛️ React.js, ⚡ Vite
 
-📌 Considerações
+---
 
-Certifique-se de ter o Node.js instalado.
+## 📌 Considerations
 
-Caso o backend utilize um banco de dados, configure as variáveis de ambiente adequadamente.
+✅ Make sure **Node.js** is installed.
 
-Verifique a porta utilizada por cada serviço para evitar conflitos.
+✅ If the backend uses a database, configure the environment variables properly.
+
+✅ Check the port used by each service to avoid conflicts.
+
+---
