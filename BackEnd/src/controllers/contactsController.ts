@@ -31,6 +31,7 @@ class ContactsController {
         cpf: contact.cpf,
         phone: contact.phone,
         email: contact.email,
+        havePhoto: contact.havePhoto,
       }));
 
       res.status(200).json(normalizeResults);

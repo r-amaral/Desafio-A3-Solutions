@@ -39,17 +39,9 @@ class ContactsPhotoController {
         return;
       }
 
-      const contactResult = await contacts.findById(id);
-
-      if (!contactResult) {
-        res.status(404).json({ message: "Contact not found" });
-        return;
-      }
-
-      contactResult.photo = photo;
-      contactResult.havePhoto = true;
-
-      await contactResult.save();
+      await contacts.findByIdAndUpdate(id, {
+        $set: { ...req.body, havePhoto: true },
+      });
 
       res.status(202).send({ message: "Contact photo included" });
     } catch (erro) {
