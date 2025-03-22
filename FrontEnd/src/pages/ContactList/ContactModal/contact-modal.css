@@ -19,12 +19,28 @@
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    margin-top: 16px;
     width: 100%;
-    margin-top: 50px;
 
     .Button__Content {
       width: 50%;
     }
+  }
+
+  .Error {
+    color: rgb(255, 0, 0);
+    background: rgb(255, 192, 192);
+    padding: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .Success {
+    color: rgb(132, 0, 255);
+    background: rgb(215, 172, 255);
+    padding: 15px;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
   }
 }

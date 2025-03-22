@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./contactList.css";
 import Card from "../../components/Card";
 import Input from "../../components/Input";
 import Alert from "../../components/Alert";
 import Header from "../../components/Header";
-import { initialList } from "../constants";
 import { ContactTypes } from "../../types";
 import Pagination from "../../components/Pagination";
 import ContactModal from "./ContactModal";
+import { getContactList } from "../../services";
+import Button from "../../components/Button";
+import Loading from "../../components/Loading";
 
 const ContactList = () => {
-  const [list, setList] = useState(initialList);
+  const [list, setList] = useState<ContactTypes[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [contactData, setContactData] = useState<ContactTypes>({
     name: "",
@@ -21,25 +25,18 @@ const ContactList = () => {
     phone: "",
   });
 
-  const filteredList = list.filter(
-    (item) =>
-      item.name.toLowerCase().includes(searchTerm) ||
-      item.cpf.toLowerCase().includes(searchTerm) ||
-      item.email.toLowerCase().includes(searchTerm) ||
-      item.phone.toLowerCase().includes(searchTerm)
-  );
-
   const indexOfLastItem = currentPage * 10;
   const indexOfFirstItem = indexOfLastItem - 10;
 
-  const currentItems = filteredList.slice(
-    indexOfFirstItem,
-    indexOfLastItem
-  );
+  const currentItems = list.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const onMountList = () => {
+    if (loading) {
+      return <Loading isLoading={loading} />;
+    }
+
     if (currentItems.length <= 0) {
       const alertText =
         list.length > 0 ? "No results found" : "No contacts found";
@@ -71,6 +68,12 @@ const ContactList = () => {
     );
   };
 
+  const searchList = (params: string = "") => {
+    getContactList({ setList, params, setLoading });
+  };
+
+  useEffect(() => searchList(), []);
+
   return (
     <main>
       <Header
@@ -86,14 +89,17 @@ const ContactList = () => {
               placeholder="search by name, email, cpf and phone"
               onChange={(event) => {
                 setCurrentPage(1);
-                setSearchTerm(event.target.value.toLowerCase());
+                setSearchTerm(event.target.value);
               }}
             />
+            <Button onClick={() => searchList(searchTerm)}>
+              Search
+            </Button>
           </div>
           {onMountList()}
           <Pagination
             itemsPerPage={10}
-            totalItems={filteredList.length}
+            totalItems={list.length}
             paginate={paginate}
             currentPage={currentPage}
           />
@@ -104,6 +110,9 @@ const ContactList = () => {
           contactData={contactData}
           setContactData={setContactData}
           isEdit={!!contactData.id}
+          setModalLoading={setModalLoading}
+          modalLoading={modalLoading}
+          searchList={searchList}
         />
       </section>
     </main>

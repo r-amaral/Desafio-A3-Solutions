@@ -81,8 +81,9 @@ class ContactsController {
       const contactResults = await contact.save();
 
       res.status(201).send({
-        message: "Contact created successfully",
+        status: 200,
         contact: contactResults,
+        message: "Contact created successfully",
       });
     } catch (erro) {
       res.status(500).json({ message: "Internal server error" });
@@ -112,9 +113,10 @@ class ContactsController {
 
       await contacts.findByIdAndUpdate(id, { $set: req.body });
 
-      res
-        .status(200)
-        .send({ message: "Contact updated successfully" });
+      res.status(200).send({
+        status: 200,
+        message: "Contact updated successfully",
+      });
     } catch (erro) {
       res.status(500).send({ message: (erro as Error).message });
     }
