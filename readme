@@ -1,0 +1,54 @@
+Meu Projeto
+
+Este projeto é composto por duas aplicações: um backend feito em Node.js e um frontend desenvolvido com React.js.
+
+Estrutura do Projeto
+
+/meu-projeto
+├── backend/ # Código do backend (Node.js)
+├── frontend/ # Código do frontend (React.js)
+├── README.md # Documentação do projeto
+
+🚀 Como executar o projeto
+
+1️⃣ Instalar dependências
+
+Cada aplicação possui suas próprias dependências. Para instalá-las, execute os seguintes comandos:
+
+Backend
+
+cd backend
+npm install
+
+Frontend
+
+cd frontend
+npm install
+
+2️⃣ Rodar os servidores
+
+Para iniciar os dois projetos, abra dois terminais e execute os seguintes comandos:
+
+Iniciar o Backend
+
+cd backend
+npm run dev
+
+Iniciar o Frontend
+
+cd frontend
+npm run dev
+
+🛠 Tecnologias utilizadas
+
+Backend: Node.js, Express
+
+Frontend: React.js, Vite
+
+📌 Considerações
+
+Certifique-se de ter o Node.js instalado.
+
+Caso o backend utilize um banco de dados, configure as variáveis de ambiente adequadamente.
+
+Verifique a porta utilizada por cada serviço para evitar conflitos.
