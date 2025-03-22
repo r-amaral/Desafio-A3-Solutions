@@ -1,6 +1,6 @@
 # 📝 My Project
 
-This project consists of two applications: a backend built with **Node.js** and a frontend developed with **React.js**.
+This project consists of two applications: a backend built with **Node.js** and a frontend developed with **React.js**. Both applications use **TypeScript** for better type safety and maintainability.
 
 ---
 
@@ -8,9 +8,26 @@ This project consists of two applications: a backend built with **Node.js** and 
 
 ```plaintext
 /my-project
-├── backend/ # Backend code (Node.js)
-├── frontend/ # Frontend code (React.js)
-├── README.md # Project documentation
+  ├── backend/      # Backend code (Node.js + TypeScript)
+  │   ├── server.ts # Main server file
+  │   ├── src/
+  │   │   ├── config/       # Configuration files
+  │   │   ├── controllers/  # Route handlers
+  │   │   ├── middlewares/  # Express middlewares
+  │   │   ├── models/       # Database models
+  │   │   ├── routes/       # Application routes
+  │   │   ├── utils/        # Utility functions
+  │   │   ├── app.ts        # Express application setup
+  ├── frontend/     # Frontend code (React.js + TypeScript)
+  │   ├── src/
+  │   │   ├── assets/       # Static assets (images, icons, styles)
+  │   │   ├── components/   # Reusable UI components
+  │   │   ├── hooks/        # Custom React hooks
+  │   │   ├── pages/        # Application pages
+  │   │   ├── services/     # API calls and business logic
+  │   │   ├── types/        # TypeScript types and interfaces
+  │   │   ├── main.tsx      # Application entry point
+  ├── README.md     # Project documentation
 ```
 
 ---
@@ -53,21 +70,19 @@ cd frontend
 npm run dev
 ```
 
+#### ▶️ Access to the application
+
+To access the application you just need to go to 👉 **http://localhost:5173** after starting both servers
+
 ---
 
 ## 🛠 Technologies Used
 
-- **Backend:** 🟢 Node.js, 🚀 Express
-- **Frontend:** ⚛️ React.js, ⚡ Vite
+- **Backend:** 🟢 Node.js (latest version), 🚀 Express, 🟦 TypeScript
+- **Frontend:** ⚛️ React.js (latest version), ⚡ Vite, 🟦 TypeScript
 
 ---
 
 ## 📌 Considerations
 
-✅ Make sure **Node.js** is installed.
-
-✅ If the backend uses a database, configure the environment variables properly.
-
-✅ Check the port used by each service to avoid conflicts.
-
----
+✅ Make sure **Node.js** (latest version) is installed.
