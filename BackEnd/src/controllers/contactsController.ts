@@ -1,7 +1,6 @@
 import contacts from "../models/Contact";
 import { Request, Response } from "express";
-import { Document } from "mongoose";
-import { validateFields } from "../utils/validate";
+import { isValidBase64, validateFields } from "../utils/validate";
 
 class ContactsController {
   static listContacts = async (
@@ -26,7 +25,15 @@ class ContactsController {
 
       const contactResults = await contacts.find(newQuery);
 
-      res.status(200).json(contactResults);
+      const normalizeResults = contactResults.map((contact) => ({
+        id: contact._id,
+        name: contact.name,
+        cpf: contact.cpf,
+        phone: contact.phone,
+        email: contact.email,
+      }));
+
+      res.status(200).json(normalizeResults);
     } catch (erro) {
       res.status(500).json({ message: "Internal server error" });
     }
@@ -123,6 +130,60 @@ class ContactsController {
         .send({ message: "Contact removed successfully" });
     } catch (erro) {
       res.status(500).send({ message: (erro as Error).message });
+    }
+  };
+
+  static listContactPhoto = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const id = req.params.id;
+
+      const contactPhoto = await contacts.findByIdAndDelete(id);
+
+      if (!contactPhoto?.havePhoto) {
+        res
+          .status(400)
+          .json({ message: "Contact without existing photo" });
+        return;
+      }
+
+      res.status(200).json(contactPhoto.photo);
+    } catch (erro) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+  static includePhoto = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    try {
+      const { photo } = req.body;
+
+      const id = req.params.id;
+
+      if (!photo || !isValidBase64(photo)) {
+        res.status(400).json({ message: "Invalid base64" });
+        return;
+      }
+
+      const contactResult = await contacts.findById(id);
+
+      if (!contactResult) {
+        res.status(404).json({ message: "Contact not found" });
+        return;
+      }
+
+      contactResult.photo = photo;
+      contactResult.havePhoto = true;
+
+      await contactResult.save();
+
+      res.status(200).send({ message: "Contact photo included" });
+    } catch (erro) {
+      res.status(500).json({ message: "Internal server error" });
     }
   };
 }

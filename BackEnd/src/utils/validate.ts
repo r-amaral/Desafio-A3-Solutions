@@ -92,3 +92,14 @@ export const validateFields = ({
 
   return { valid: true };
 };
+
+export const isValidBase64 = (str: string): boolean => {
+  if (str === "" || str.trim() === "") {
+    return false;
+  }
+  try {
+    return btoa(atob(str)) == str;
+  } catch (err) {
+    return false;
+  }
+};

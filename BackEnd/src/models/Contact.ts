@@ -6,7 +6,8 @@ const contactSchema = new mongoose.Schema({
   cpf: { type: String, required: true },
   email: { type: String, required: true },
   phone: { type: String, required: true },
-  havePhoto: { type: Boolean, default: false },
+  havePhoto: { type: Boolean, default: false, required: false },
+  photo: { type: String, required: false },
 });
 
 const contacts = mongoose.model("Contacts", contactSchema);
