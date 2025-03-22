@@ -1,32 +1,12 @@
-import { ContactTypes } from "../types";
 import { endpoints } from "./endpoints";
-
-interface GetContactListTypes {
-  setList(e: ContactTypes[]): void;
-  params: string;
-  setLoading(e: boolean): void;
-}
-
-interface PostContactListTypes {
-  name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  setLoading(e: boolean): void;
-}
-interface PatchContactListTypes {
-  name?: string;
-  cpf?: string;
-  email?: string;
-  phone?: string;
-  id: string;
-  setLoading(e: boolean): void;
-}
-
-interface DeleteContactListTypes {
-  id: string;
-  setLoading(e: boolean): void;
-}
+import {
+  DeleteContactListTypes,
+  GetContactListTypes,
+  GetContactPhotoTypes,
+  PatchContactListTypes,
+  PatchContactPhotoTypes,
+  PostContactListTypes,
+} from "./types";
 
 const AUTH__TOKEN = "MTY0NTMyODUwMzc=";
 const BASE_URL = "http://localhost:3000";
@@ -109,6 +89,61 @@ export const patchContactList = ({
 };
 
 export const deleteContact = ({
+  setLoading,
+  id,
+}: DeleteContactListTypes) => {
+  setLoading(true);
+
+  return fetchWithAuth(endpoints.deleteContact.replace(":id", id), {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if ("status" in response && response.status === 200) {
+        return response;
+      }
+
+      return Promise.reject(response);
+    })
+    .catch((err) => Promise.reject(err))
+    .finally(() => setLoading(false));
+};
+
+export const getContactPhoto = ({
+  id,
+  setLoading,
+}: GetContactPhotoTypes) => {
+  setLoading(true);
+
+  return fetchWithAuth(endpoints.getContactPhoto.replace(":id", id))
+    .then((response) => {
+      if ("status" in response && response.status === 200) {
+        return response;
+      }
+      return Promise.reject(response);
+    })
+    .catch((err) => Promise.reject(err))
+    .finally(() => setLoading(false));
+};
+
+export const createContactPhoto = ({
+  id,
+  photo,
+}: PatchContactPhotoTypes) => {
+  return fetchWithAuth(endpoints.includePhoto.replace(":id", id), {
+    method: "PATCH",
+    body: JSON.stringify({ photo }),
+  })
+    .then((response) => {
+      if ("status" in response && response.status === 200) {
+        return response;
+      }
+
+      return Promise.reject(response);
+    })
+    .catch((err) => Promise.reject(err));
+};
+
+export const deleteContactPhoto = ({
   setLoading,
   id,
 }: DeleteContactListTypes) => {

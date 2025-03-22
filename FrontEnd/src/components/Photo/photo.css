@@ -1,0 +1,41 @@
+.Photo__Container {
+  display: flex;
+  align-items: center;
+
+  .Photo__Input {
+    display: none;
+  }
+
+  .Photo__Label {
+    cursor: pointer;
+  }
+
+  .Photo__Img {
+    width: 90px;
+    height: 90px;
+    border: 1px solid #8400ff;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .Photo__Text {
+    font-size: 16px;
+    color: black;
+    font-weight: 500;
+  }
+
+  .Photo__Placeholder {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    font-size: 70px;
+    font-weight: 200;
+    color: #8400ff;
+    border: 1px solid #8400ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+}

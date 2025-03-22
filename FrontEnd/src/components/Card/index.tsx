@@ -36,7 +36,7 @@ const Card = ({
   const handleEdit = () => {
     setOpenModal(true);
     setOpen(false);
-    setContactData({ name, cpf, email, phone, id });
+    setContactData({ name, cpf, email, phone, _id: id });
   };
 
   const onDeleteContact = () => {

@@ -25,16 +25,7 @@ class ContactsController {
 
       const contactResults = await contacts.find(newQuery);
 
-      const normalizeResults = contactResults.map((contact) => ({
-        id: contact._id,
-        name: contact.name,
-        cpf: contact.cpf,
-        phone: contact.phone,
-        email: contact.email,
-        havePhoto: contact.havePhoto,
-      }));
-
-      res.status(200).json(normalizeResults);
+      res.status(200).json(contactResults);
     } catch (erro) {
       res.status(500).json({ message: "Internal server error" });
     }
@@ -128,12 +119,10 @@ class ContactsController {
 
       await contacts.findByIdAndDelete(id);
 
-      res
-        .status(200)
-        .send({
-          status: 200,
-          message: "Contact removed successfully",
-        });
+      res.status(200).send({
+        status: 200,
+        message: "Contact removed successfully",
+      });
     } catch (erro) {
       res.status(500).send({ message: (erro as Error).message });
     }

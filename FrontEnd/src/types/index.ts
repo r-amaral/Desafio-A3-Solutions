@@ -3,5 +3,6 @@ export interface ContactTypes {
   cpf: string;
   email: string;
   phone: string;
-  id?: string;
+  _id?: string;
+  photo?: string;
 }

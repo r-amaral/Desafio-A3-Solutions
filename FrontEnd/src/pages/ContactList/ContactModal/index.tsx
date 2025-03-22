@@ -3,9 +3,15 @@ import Modal from "../../../components/Modal";
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import "./contact-modal.css";
-import { patchContactList, postContactList } from "../../../services";
-import { useState } from "react";
+import {
+  createContactPhoto,
+  getContactPhoto,
+  patchContactList,
+  postContactList,
+} from "../../../services";
+import { useEffect, useState } from "react";
 import Loading from "../../../components/Loading";
+import Photo from "../../../components/Photo";
 
 interface ContactModalTypes {
   open: boolean;
@@ -37,7 +43,7 @@ const ContactModal = ({
       cpf: "",
       email: "",
       phone: "",
-      id: "",
+      _id: "",
     });
     setAlert({ text: "", type: "" });
   };
@@ -60,7 +66,7 @@ const ContactModal = ({
       ) {
         patchContactList({
           ...payload,
-          id: contactData.id as string,
+          id: contactData._id as string,
         })
           .then((response) => {
             setAlert({ type: "Success", text: response.message });
@@ -68,6 +74,14 @@ const ContactModal = ({
           })
           .catch((error) => {
             setAlert({ type: "Error", text: error.message });
+          })
+          .finally(() => {
+            if (contactData.photo) {
+              createContactPhoto({
+                id: contactData._id as string,
+                photo: contactData.photo as string,
+              });
+            }
           });
       }
     } else {
@@ -81,6 +95,20 @@ const ContactModal = ({
         });
     }
   };
+
+  useEffect(() => {
+    if (isEdit) {
+      getContactPhoto({
+        id: contactData._id as string,
+        setLoading: setModalLoading,
+      }).then((response) =>
+        setContactData({ ...contactData, photo: response.data })
+      );
+    }
+  }, [isEdit]);
+
+  console.log(contactData);
+
   return (
     <Modal open={open} onClose={onCloseModal}>
       <div className="Contact__Modal_Wrapper">
@@ -89,6 +117,18 @@ const ContactModal = ({
             {isEdit ? "Edit Contact" : "Add new contact"}
           </h2>
         </div>
+        {isEdit && (
+          <Photo
+            label={"Edit your photo"}
+            photo={contactData.photo}
+            onChange={(value) =>
+              setContactData({
+                ...contactData,
+                photo: value as string,
+              })
+            }
+          />
+        )}
         <Input
           id="input-name"
           label="Name"

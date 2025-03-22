@@ -61,7 +61,7 @@ const ContactList = () => {
             name={item.name}
             email={item.email}
             phone={item.phone}
-            id={item.id}
+            id={item._id}
             setLoading={setLoading}
             searchList={searchList}
           />
@@ -111,7 +111,7 @@ const ContactList = () => {
           setOpenModal={setOpenModal}
           contactData={contactData}
           setContactData={setContactData}
-          isEdit={!!contactData.id}
+          isEdit={!!contactData._id}
           setModalLoading={setModalLoading}
           modalLoading={modalLoading}
           searchList={searchList}

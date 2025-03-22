@@ -10,7 +10,7 @@ class ContactsPhotoController {
     try {
       const id = req.params.id;
 
-      const contactPhoto = await contacts.findByIdAndDelete(id);
+      const contactPhoto = await contacts.findById(id);
 
       if (!contactPhoto?.havePhoto) {
         res
@@ -19,7 +19,7 @@ class ContactsPhotoController {
         return;
       }
 
-      res.status(200).json(contactPhoto.photo);
+      res.status(200).json({ status: 200, data: contactPhoto.photo });
     } catch (erro) {
       res.status(500).json({ message: "Internal server error" });
     }
@@ -34,7 +34,7 @@ class ContactsPhotoController {
 
       const id = req.params.id;
 
-      if (!photo || !isValidBase64(photo)) {
+      if (!photo) {
         res.status(400).json({ message: "Invalid base64" });
         return;
       }
@@ -43,7 +43,9 @@ class ContactsPhotoController {
         $set: { ...req.body, havePhoto: true },
       });
 
-      res.status(202).send({ message: "Contact photo included" });
+      res
+        .status(202)
+        .send({ status: 200, message: "Contact photo included" });
     } catch (erro) {
       res.status(500).json({ message: "Internal server error" });
     }
@@ -65,9 +67,10 @@ class ContactsPhotoController {
 
       await contactResult.save();
 
-      res
-        .status(202)
-        .send({ message: "Contact photo removed successfully" });
+      res.status(202).send({
+        status: 200,
+        message: "Contact photo removed successfully",
+      });
     } catch (erro) {
       res.status(500).send({ message: "Internal server error" });
     }
