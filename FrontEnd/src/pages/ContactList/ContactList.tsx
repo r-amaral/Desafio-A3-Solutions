@@ -62,6 +62,8 @@ const ContactList = () => {
             email={item.email}
             phone={item.phone}
             id={item.id}
+            setLoading={setLoading}
+            searchList={searchList}
           />
         ))}
       </ul>

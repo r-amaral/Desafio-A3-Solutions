@@ -23,6 +23,11 @@ interface PatchContactListTypes {
   setLoading(e: boolean): void;
 }
 
+interface DeleteContactListTypes {
+  id: string;
+  setLoading(e: boolean): void;
+}
+
 const AUTH__TOKEN = "MTY0NTMyODUwMzc=";
 const BASE_URL = "http://localhost:3000";
 
@@ -91,6 +96,26 @@ export const patchContactList = ({
   return fetchWithAuth(endpoints.updateContact.replace(":id", id), {
     method: "PATCH",
     body: JSON.stringify({ name, cpf, email, phone }),
+  })
+    .then((response) => {
+      if ("status" in response && response.status === 200) {
+        return response;
+      }
+
+      return Promise.reject(response);
+    })
+    .catch((err) => Promise.reject(err))
+    .finally(() => setLoading(false));
+};
+
+export const deleteContact = ({
+  setLoading,
+  id,
+}: DeleteContactListTypes) => {
+  setLoading(true);
+
+  return fetchWithAuth(endpoints.deleteContact.replace(":id", id), {
+    method: "DELETE",
   })
     .then((response) => {
       if ("status" in response && response.status === 200) {

@@ -130,7 +130,10 @@ class ContactsController {
 
       res
         .status(200)
-        .send({ message: "Contact removed successfully" });
+        .send({
+          status: 200,
+          message: "Contact removed successfully",
+        });
     } catch (erro) {
       res.status(500).send({ message: (erro as Error).message });
     }
