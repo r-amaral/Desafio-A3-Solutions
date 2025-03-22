@@ -5,6 +5,8 @@
   gap: 16px;
   padding: 40px;
   background: #39116e;
+  box-sizing: border-box;
+  height: 15vh;
 
   .Header__Title__Wrapper {
     display: flex;

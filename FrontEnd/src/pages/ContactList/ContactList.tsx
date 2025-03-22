@@ -84,21 +84,23 @@ const ContactList = () => {
       />
       <section className="Main__Content">
         <div className="ContactList__Section">
-          <div className="ContactList__ActionsWrapper">
-            <Input
-              id="input-search-contact"
-              label="Search Contact"
-              placeholder="search by name, email, cpf and phone"
-              onChange={(event) => {
-                setCurrentPage(1);
-                setSearchTerm(event.target.value);
-              }}
-            />
-            <Button onClick={() => searchList(searchTerm)}>
-              Search
-            </Button>
+          <div className="ContactList__Content">
+            <div className="ContactList__ActionsWrapper">
+              <Input
+                id="input-search-contact"
+                label="Search Contact"
+                placeholder="search by name, email, cpf and phone"
+                onChange={(event) => {
+                  setCurrentPage(1);
+                  setSearchTerm(event.target.value);
+                }}
+              />
+              <Button onClick={() => searchList(searchTerm)}>
+                Search
+              </Button>
+            </div>
+            {onMountList()}
           </div>
-          {onMountList()}
           <Pagination
             itemsPerPage={10}
             totalItems={list.length}

@@ -107,8 +107,6 @@ const ContactModal = ({
     }
   }, [isEdit]);
 
-  console.log(contactData);
-
   return (
     <Modal open={open} onClose={onCloseModal}>
       <div className="Contact__Modal_Wrapper">
